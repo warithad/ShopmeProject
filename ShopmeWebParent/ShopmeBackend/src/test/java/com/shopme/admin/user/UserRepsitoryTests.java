@@ -57,10 +57,21 @@ public class UserRepsitoryTests {
 		listUsers.forEach(user -> 
 				System.out.println(user));
 	}
+	
 	@Test
 	public void testFindUserById() {
 		User user = repo.findById(1).get();
 		System.out.println(user);
 		assertThat(user).isNotNull();
+	}
+	
+	@Test
+	public void testUpdateUserDetails() {
+		User user = repo.findById(1).get();
+		user.setEnabled(true);
+		
+		user.setEmail("warith@newmail.java.co");
+		
+		repo.save(user);
 	}
 }
