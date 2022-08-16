@@ -74,4 +74,17 @@ public class UserRepsitoryTests {
 		
 		repo.save(user);
 	}
+	
+	@Test
+	public void testUpdateUserRoles() {
+		User user = repo.findById(2).get();
+		Role editor = new Role(3);
+		Role salesPerson = new Role(2);
+		
+		user.getRoles().remove(editor);
+		user.addRole(salesPerson);
+		
+		repo.save(user);
+		
+	}
 }
