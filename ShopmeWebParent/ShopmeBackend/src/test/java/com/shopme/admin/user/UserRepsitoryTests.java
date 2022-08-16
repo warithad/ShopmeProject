@@ -81,10 +81,16 @@ public class UserRepsitoryTests {
 		Role editor = new Role(3);
 		Role salesPerson = new Role(2);
 		
-		user.getRoles().remove(editor);
-		user.addRole(salesPerson);
+		user.getRoles().remove(salesPerson);
+		user.addRole(editor);
 		
 		repo.save(user);
 		
 	}
+	@Test
+	public void testDeleteUser() {
+		Integer userId = 2;
+		repo.deleteById(userId);
+	}
+	
 }
