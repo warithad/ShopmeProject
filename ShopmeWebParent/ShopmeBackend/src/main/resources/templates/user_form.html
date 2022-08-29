@@ -119,6 +119,26 @@
 					</div>
 				</div>
 			</form>
+			
+			<div class="modal fade text-center" id="modalDialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="modalTitle">Warning</h4>
+							<button type= "button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						
+						<div class="modal-body">
+							<span id="modalBody"></span>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 			<div class="text-center">
 				<p>Shopme Control Panel - Copyright &copy; Shopme</pc>
 			</div>
@@ -142,13 +162,24 @@
 				if( response == "OK"){
 					form.submit();
 				}else if(response == "Duplicated"){
-					alert("There is another user having the email " + userEmail);
+					showModalDialog("Warning","There is another user having the email " + userEmail);
 				}
-				
+				else {
+					showModalDialog("Error", "Unknown response from server");
+				}
+			}).fail(function() {
+				showModalDialog("Error", "Could not connect to the server");
 			});
 			
 			return false;
 		}
+		
+		function showModalDialog(title, message){
+			$("#modalTitle").text(title);
+			$("#modalBody").text(message);
+			$("#modalDialog").modal();
+		}
+		
 		
 	</script>
 </html>
