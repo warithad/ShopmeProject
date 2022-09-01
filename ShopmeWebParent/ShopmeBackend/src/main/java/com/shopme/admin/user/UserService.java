@@ -1,6 +1,7 @@
 package com.shopme.admin.user;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,8 +40,30 @@ public class UserService {
 		user.setPassword(encodedPassword);
 	}
 	
-	public boolean isEmailUnique(String email) {
-		User user = userRepo.getUserByEmail(email);		
-		return user == null;
+	public boolean isEmailUnique(Integer id, String email) {
+		User userByEmail = userRepo.getUserByEmail(email);		
+		
+		if(userByEmail == null) return true;
+		
+		boolean isCreatingNew = (id == null);
+		
+		if(isCreatingNew) {
+			if(userByEmail != null) {
+				return false;
+			}
+		}
+		else {
+			if(userByEmail.getId() != null) return false;
+		}
+		return true;
+	}
+	
+	public User get(Integer id) throws UserNotFoundException {
+		try{
+			return userRepo.findById(id).get();
+		}
+		catch(NoSuchElementException ex) {
+			throw new UserNotFoundException("User with ID "+ id +" does not exist");
+		}
 	}
 }
