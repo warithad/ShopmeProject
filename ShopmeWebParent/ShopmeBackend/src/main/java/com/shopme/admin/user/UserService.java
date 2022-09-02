@@ -65,7 +65,7 @@ public class UserService {
 			}
 		}
 		else {
-			if(userByEmail.getId() != null) return false;
+			if(userByEmail.getId() != id) return false;
 		}
 		return true;
 	}
