@@ -107,4 +107,16 @@ public class UserRepsitoryTests {
 		Long count = repo.countById(id);
 		assertThat(count).isNotNull().isGreaterThan(0);
 	}
+	
+	@Test
+	public void testDisableUser() {
+		Integer id = 5;
+		repo.updateUserEnabledStatus(id, false);
+	}
+	
+	@Test
+	public void testEnableUser() {
+		Integer id = 6;
+		repo.updateUserEnabledStatus(id, true);
+	}
 }
